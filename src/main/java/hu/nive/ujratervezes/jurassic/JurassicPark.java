@@ -17,10 +17,13 @@ public class JurassicPark {
 
     public List<String> checkOverpopulation() {
         List<String> dinosaurs = new ArrayList<>();
+
         try(Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)){
             String SQL = "SELECT breed FROM dinosaur WHERE actual > expected GROUP BY breed";
+
             PreparedStatement statement = connection.prepareStatement(SQL);
             ResultSet result = statement.executeQuery();
+
             while(result.next()) {
                 dinosaurs.add(result.getString(1));
             }
@@ -30,6 +33,4 @@ public class JurassicPark {
         }
         return dinosaurs;
     }
-
-
 }
